@@ -34,6 +34,11 @@ jobs:
           java-version: '17'
       - name: build jar file
         run: mvn clean package
+      - name: upload artificat #Uploads build on the summary actions page
+        uses: actions/upload-artifact@v7
+        with:
+          name: artifact-data
+          path: 'target/*.jar' #Picks any file in the target folder that has jar extension 
 
           
     
