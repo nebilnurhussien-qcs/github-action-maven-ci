@@ -1,4 +1,4 @@
-name: maven Github Actions
+name: Maven Github Actions
 on:
   push:
     branches: ['main']
