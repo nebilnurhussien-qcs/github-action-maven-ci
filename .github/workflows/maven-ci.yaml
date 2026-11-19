@@ -43,7 +43,7 @@ jobs:
           path: 'target/*.jar' #Picks any file in the target folder that has jar extension 
       - name: Get the name of output file
         id: artifact-name
-        run: find target/*.jar -type f -execdir echo 'artifact-data={}' >> '$GITHUB_OUTPUT ;'
+        run: find target/*.jar -type f -execdir echo 'artifact-data={}' >> $GITHUB_OUTPUT ';'
         # Finds the .jar file's name and saves it as the step output "artifact-data"
 
 
