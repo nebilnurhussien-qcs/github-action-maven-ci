@@ -24,6 +24,8 @@ jobs:
     needs: test #Sequential tests need to be delievered
     name: building maven
     runs-on: ubuntu-latest
+    outputs:
+      artifact-data: ${{ steps.artifact-name.outputs.artifact-data }} #Referencing the file to be used as output
     steps:
       - name: get source code
         uses: actions/checkout@v6
@@ -39,6 +41,10 @@ jobs:
         with:
           name: artifact-data
           path: 'target/*.jar' #Picks any file in the target folder that has jar extension 
+      - name: Get the name of output file
+        id: artifact-name
+        run: find target/*.jar -type f -execdir echo 'artifact-data={}' >> '$GITHUB_OUTPUT ;'
+        # Finds the .jar file's name and saves it as the step output "artifact-data"
 
 
   deploy:
@@ -47,8 +53,10 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         -  name: Get artifacts data from build jobs
-           uses: actions/download-artifact@v7
+           uses: actions/download-artifact@v7 #This action shows the uploaded artifact 
            with:
              name: artifact-data
         - name: list my artifact
-          run: ls
+          run: ls 
+
+          
