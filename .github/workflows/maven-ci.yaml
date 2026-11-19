@@ -47,7 +47,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         -  name: Get artifacts data from build jobs
-           uses: actions/download@v6
+           uses: actions/download-artifact@v7
            with:
              name: artifact-data
         - name: list my artifact
