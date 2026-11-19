@@ -24,7 +24,7 @@ jobs:
     needs: test #Sequential tests need to be delievered
     name: building maven
     runs-on: ubuntu-latest
-    outputs:
+    outputs: #Allows the file name to be used on other jobs as well
       artifact-data: ${{ steps.artifact-name.outputs.artifact-data }} #Referencing the file to be used as output
     steps:
       - name: get source code
@@ -58,5 +58,7 @@ jobs:
              name: artifact-data
         - name: list my artifact
           run: ls 
+        - name: getting artifact file name
+          run: echo ${{ needs.build.outputs.artifact-data }} #Over here we are getting file name from different job
 
           
