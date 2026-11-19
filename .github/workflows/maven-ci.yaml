@@ -40,10 +40,15 @@ jobs:
           name: artifact-data
           path: 'target/*.jar' #Picks any file in the target folder that has jar extension 
 
-          
-    
 
-  #build:
-    #runs-on: ubuntu-latest
-    #background: steps:
-      #- 
+  deploy:
+      needs: build 
+      name: taking artifacts of maven
+      runs-on: ubuntu-latest
+      steps:
+        -  name: Get artifacts data from build jobs
+           uses: actions/download@v6
+           with:
+             name: artifact-data
+        - name: list my artifact
+          run: ls
