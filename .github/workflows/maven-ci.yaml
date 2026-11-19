@@ -17,9 +17,15 @@ jobs:
         with:
           distribution: 'temurin' 
           java-version: '17'
+      - name: caching the dependency
+        uses: actions/cache@v6
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: running tests
         run: mvn test
-
   build:
     needs: test #Sequential tests need to be delievered
     name: building maven
